@@ -36,9 +36,12 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Account has been created successfully ! Login with same credentials');
+          showSnackBar(context,
+              'Account has been created successfully ! Login with same credentials');
         },
       );
-    } catch (e) {}
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 }
