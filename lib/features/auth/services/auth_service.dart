@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/models/user.dart';
@@ -7,7 +9,7 @@ import 'package:http/http.dart' as http;
 import '../../../constants/error_handling.dart';
 
 class AuthService {
-  //Signing up user
+  //Sign up user
   void signUpUser({
     required BuildContext context,
     required String email,
@@ -40,6 +42,34 @@ class AuthService {
               'Account has been created successfully ! Login with same credentials');
         },
       );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //Sign in user
+  void signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/signin'),
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      httpErrorHandle(
+        response: res, 
+        context: context, 
+        onSuccess: () {
+
+      });
     } catch (e) {
       showSnackBar(context, e.toString());
     }
