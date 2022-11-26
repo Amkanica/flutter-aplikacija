@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/models/user.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/error_handling.dart';
 
@@ -65,11 +68,13 @@ class AuthService {
         },
       );
       httpErrorHandle(
-        response: res, 
-        context: context, 
-        onSuccess: () {
-
-      });
+          response: res,
+          context: context,
+          onSuccess: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+            await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          });
     } catch (e) {
       showSnackBar(context, e.toString());
     }

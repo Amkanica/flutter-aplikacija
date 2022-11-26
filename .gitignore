@@ -130,3 +130,7 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 
 server/node_modules
+macos/Flutter
+macos/Podfile
+ios/Podfile
+ios/Flutter/
