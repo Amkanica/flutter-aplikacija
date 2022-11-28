@@ -134,3 +134,6 @@ macos/Flutter
 macos/Podfile
 ios/Podfile
 ios/Flutter/
+ios/Runner.xcodeproj/project.pbxproj
+ios/Runner.xcworkspace/contents.xcworkspacedata
+pubspec.yaml
